@@ -3,7 +3,7 @@ import manager.*;
 
 public class Main {
     public static void main(String[] args) {
-        //Убрал конструктор с ид. Все замечание постарался исправить. Спасибо большое за правки, приятно с тобой работать)
+        //Написал реализацию историй хранения с нодой, не со всем понимаю нужно было в ней делать head и tail так-как Я ищу по ид.
         TaskManager manager = Managers.getDefault();
         Epic epic1 = new Epic("Помыть машину", "Это будет весело");
         Epic epic2 = new Epic("Выучить java", "учиться в Yandex");
@@ -22,6 +22,8 @@ public class Main {
         manager.getEpicHashMap(2);
         manager.getSubTaskHashMap(3);
         manager.getTaskHashMap(6);
+        manager.getEpicHashMap(2);
+        manager.taskDelete(2);
         System.out.println("История просмотров" + manager.getHistory());
 
         System.out.println("Список всех созданных задач:");

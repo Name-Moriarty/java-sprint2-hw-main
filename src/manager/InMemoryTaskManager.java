@@ -129,11 +129,14 @@ public class InMemoryTaskManager implements TaskManager {
         boolean fullEpic = epicHashMap.remove(key, epicHashMap.get(key));
         boolean fullSubtask = subtaskHashMap.remove(key, subtaskHashMap.get(key));
         if (fullTask || fullEpic) {
+            historyManager.remove(key);
             System.out.println("Объект  удален");
         } else if (fullSubtask) {
+            historyManager.remove(key);
             updateEpicStatus(key);
             System.out.println("Объект  удален");
         } else {
+            historyManager.remove(key);
             System.out.println("Объект с таким идентификатором нет");
         }
     }
@@ -179,7 +182,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public Epic getEpicHashMap(int key) {
         if (epicHashMap.containsKey(key)) {
-            historyManager.add(epicHashMap.get(key));
+            historyManager.linkLast(epicHashMap.get(key));
             return epicHashMap.get(key);
         } else {
             System.out.println("Эпика с таким идентификатором нет");
@@ -190,7 +193,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public Task getTaskHashMap(int key) {
         if (taskHashMap.containsKey(key)) {
-            historyManager.add(taskHashMap.get(key));
+            historyManager.linkLast(taskHashMap.get(key));
             return taskHashMap.get(key);
         } else {
             System.out.println("Эпика с таким идентификатором нет");
@@ -201,7 +204,7 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public SubTask getSubTaskHashMap(int key) {
         if (subtaskHashMap.containsKey(key)) {
-            historyManager.add(subtaskHashMap.get(key));
+            historyManager.linkLast(subtaskHashMap.get(key));
             return subtaskHashMap.get(key);
 
         } else {
@@ -212,6 +215,6 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public List<Task> getHistory() {
-        return historyManager.getHistory();
+        return historyManager.getTasks();
     }
 }
